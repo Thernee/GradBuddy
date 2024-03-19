@@ -26,4 +26,27 @@ ALTER TABLE
   `schools` ADD INDEX `schools_institutionalcontrol_index`(`institutionalControl`);
 ALTER TABLE
   `schools` ADD INDEX `schools_acceptancerate_index`(`acceptanceRate`);
-  
+
+-- Add sample data into schools table
+INSERT INTO
+  `schools` (
+    `school_id`,
+    `school_name`,
+    `state`,
+    `city`,
+    `institutionalControl`,
+    `rank`,
+    `acceptanceRate`,
+    `SchoolWebsite`
+  )
+VALUES
+  (
+    1,
+    'University of California, Berkeley',
+    'California',
+    'Berkeley',
+    'Public',
+    1,
+    0.94,
+    'https://www.berkeley.edu/'
+  );

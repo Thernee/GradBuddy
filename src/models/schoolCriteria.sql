@@ -20,3 +20,23 @@ ALTER TABLE
 
 ALTER TABLE
     `schoolCriteria` ADD CONSTRAINT `schoolcriteria_school_id_foreign` FOREIGN KEY(`school_id`) REFERENCES `schools`(`school_id`);
+
+-- Add sample data into school criteria table
+
+INSERT INTO `schoolCriteria` (
+  `criteria_id`,
+  `school_id`,
+  `graduateLevel`,
+  `offersScholarships`,
+  `requiresAppFee`,
+  `requiresGre`
+)
+VALUES
+  (
+    1,
+    1,
+    'Masters/PhD',
+    0,
+    1,
+    0
+  );

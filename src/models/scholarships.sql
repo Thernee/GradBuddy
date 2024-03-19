@@ -17,3 +17,21 @@ CREATE TABLE IF NOT EXISTS `scholarships` (
 -- Add foreign keys
 ALTER TABLE
   `scholarships` ADD CONSTRAINT `scholarships_school_id_foreign` FOREIGN KEY(`school_id`) REFERENCES `schools`(`school_id`);
+
+-- Add sample data into scholarships table
+INSERT INTO
+  `scholarships` (
+    `scholarship_id`,
+    `school_id`,
+    `scholarship_name`,
+    `program`,
+    `degree_level`
+  )
+VALUES
+  (
+    1,
+    1,
+    'Scholarship 1',
+    'Computer science',
+    'Masters'
+  );
