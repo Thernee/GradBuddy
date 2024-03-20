@@ -3,6 +3,7 @@ import { errorResponse, successResponse } from "../utils/responseHandle";
 import db from "../../config/db";
 import util from "util";
 import catchError from "../utils/errorHandle";
+import bcrypt from "bcrypt";
 
 const promisifiedQuery = util.promisify(db.query).bind(db);
 
