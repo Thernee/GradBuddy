@@ -85,8 +85,13 @@ export const deleteUser = catchError(async (req, res) => {
  */
 export const updateUserPassword = catchError(async (req, res) => {
   const { user_id } = req.params;
-  const { password } = req.body;
+  const { password, confirmPassword } = req.body;
 
+  // check if password and confirm password match
+  if (password !== confirmPassword) {
+    return errorResponse(res, 'Passwords do not match', StatusCodes.BAD_REQUEST);
+  }
+  
   // check if user exists in database, by user_id
   const checkQuery = 'SELECT * FROM users WHERE user_id = ?';
   const existingUser = await promisifiedQuery(checkQuery, [user_id]);

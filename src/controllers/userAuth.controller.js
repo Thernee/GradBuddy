@@ -50,14 +50,14 @@ export const registerUser = catchError(async (req, res) => {
  * @returns IErrorResponse
  */
 export const loginUser = catchError(async (req, res) => {
-  const { username, password } = req.body;
+  const { username, email, password } = req.body;
 
-  // check if user exists in database, by username
-  const checkQuery = 'SELECT * FROM users WHERE username = ?';
-  const existingUser = await promisifiedQuery(checkQuery, [username]);
+  // check if user exists in database, by username or email
+  const checkQuery = 'SELECT * FROM users WHERE username = ? OR email = ?';
+  const existingUser = await promisifiedQuery(checkQuery, [username, email]);
 
   if (existingUser.length === 0) {
-    return errorResponse(res, 'Invalid username', StatusCodes.NOT_FOUND);
+    return errorResponse(res, 'Invalid username or email', StatusCodes.UNAUTHORIZED);
   }
 
   const user = existingUser[0];
