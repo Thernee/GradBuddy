@@ -1,8 +1,8 @@
 import { StatusCodes } from 'http-status-codes';
 import util from 'util';
-import db from '../../config/db';
-import catchError from '../utils/errorHandle';
-import { successResponse, errorResponse } from '../utils/responseHandle';
+import db from '../../config/db.js';
+import catchError from '../utils/errorHandle.js';
+import { successResponse, errorResponse } from '../utils/responseHandle.js';
 
 const promisifiedQuery = util.promisify(db.query).bind(db);
 

@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import criteriaRoute from './criteria.route';
-import favoritesRoute from './favorites.route';
-import scholarshipsRoute from './scholarships.route';
-import schoolsRoute from './schools.route';
-import userAuthRoute from './userAuth.route';
-import userRoute from './user.route';
+import criteriaRoute from './criteria.route.js';
+import favoritesRoute from './favorites.route.js';
+import scholarshipsRoute from './scholarships.route.js';
+import schoolsRoute from './schools.route.js';
+import userAuthRoute from './userAuth.route.js';
+import userRoute from './user.route.js';
 
 const router = Router();
 

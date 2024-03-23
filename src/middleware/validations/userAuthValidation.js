@@ -1,5 +1,5 @@
 import { StatusCodes } from "http-status-codes";
-import { errorResponse } from "../../utils/responseHandle";
+import { errorResponse } from "../../utils/responseHandle.js";
 import { body, validationResult } from "express-validator";
 
 /**

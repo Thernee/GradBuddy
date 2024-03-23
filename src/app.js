@@ -1,5 +1,5 @@
-import { successResponse, errorResponse } from "./utils/responseHandle";
-import routes from "./routes/index";
+import { successResponse, errorResponse } from "./utils/responseHandle.js";
+import routes from "./routes/index.js";
 import express from "express";
 import cors from "cors";
 import { StatusCodes } from "http-status-codes";

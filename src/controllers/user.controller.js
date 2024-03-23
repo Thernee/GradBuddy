@@ -1,8 +1,8 @@
 import { StatusCodes } from "http-status-codes";
-import { errorResponse, successResponse } from "../utils/responseHandle";
-import db from "../../config/db";
+import { errorResponse, successResponse } from "../utils/responseHandle.js";
+import db from "../../config/db.js";
 import util from "util";
-import catchError from "../utils/errorHandle";
+import catchError from "../utils/errorHandle.js";
 import bcrypt from "bcrypt";
 
 const promisifiedQuery = util.promisify(db.query).bind(db);
@@ -91,7 +91,7 @@ export const updateUserPassword = catchError(async (req, res) => {
   if (password !== confirmPassword) {
     return errorResponse(res, 'Passwords do not match', StatusCodes.BAD_REQUEST);
   }
-  
+
   // check if user exists in database, by user_id
   const checkQuery = 'SELECT * FROM users WHERE user_id = ?';
   const existingUser = await promisifiedQuery(checkQuery, [user_id]);

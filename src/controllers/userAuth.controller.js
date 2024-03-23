@@ -1,8 +1,8 @@
 import { StatusCodes } from "http-status-codes";
-import { errorResponse, successResponse } from "../utils/responseHandle";
-import db from "../../config/db";
+import { errorResponse, successResponse } from "../utils/responseHandle.js";
+import db from "../../config/db.js";
 import util from "util";
-import catchError from "../utils/errorHandle";
+import catchError from "../utils/errorHandle.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { v4 as uuidv4 } from 'uuid';

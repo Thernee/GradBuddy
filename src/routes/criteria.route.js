@@ -1,4 +1,4 @@
-import { getCriteria } from "../controllers/criteria.controller";
+import { getCriteria } from "../controllers/criteria.controller.js";
 
 export default (router) => {
   router.get('/criteria/:school_id', getCriteria);
