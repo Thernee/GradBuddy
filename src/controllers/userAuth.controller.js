@@ -4,6 +4,8 @@ import db from "../../config/db";
 import util from "util";
 import catchError from "../utils/errorHandle";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import { v4 as uuidv4 } from 'uuid';
 
 const promisifiedQuery = util.promisify(db.query).bind(db);
 
@@ -31,9 +33,42 @@ export const registerUser = catchError(async (req, res) => {
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
+  const user_id = uuidv4();
 
-  const insertUserQuery = 'INSERT INTO users (username, fullname, email, password, nationality) VALUES (?, ?, ?, ?, ?)';
-  await promisifiedQuery(insertUserQuery, [username, fullname, email, hashedPassword, nationality]);
+  const insertUserQuery = 'INSERT INTO users (user_id, username, fullname, email, password, nationality) VALUES (?, ?, ?, ?, ?, ?)';
+  await promisifiedQuery(insertUserQuery, [user_id, username, fullname, email, hashedPassword, nationality]);
 
   return successResponse(res, 'User created successfully');
+});
+
+/**
+ * Login user
+ * @param req: The request object
+ * @param res: The response object
+ * @returns IErrorResponse
+ * @returns ISuccessResponse
+ * @returns IErrorResponse
+ */
+export const loginUser = catchError(async (req, res) => {
+  const { username, password } = req.body;
+
+  // check if user exists in database, by username
+  const checkQuery = 'SELECT * FROM users WHERE username = ?';
+  const existingUser = await promisifiedQuery(checkQuery, [username]);
+
+  if (existingUser.length === 0) {
+    return errorResponse(res, 'Invalid username', StatusCodes.NOT_FOUND);
+  }
+
+  const user = existingUser[0];
+
+  const passwordMatch = await bcrypt.compare(password, user.password);
+
+  if (!passwordMatch) {
+    return errorResponse(res, 'Invalid password', StatusCodes.UNAUTHORIZED);
+  }
+
+  const token = jwt.sign({ user_id: user.user_id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '1h'});
+
+  return successResponse(res, 'Login successful', { token });
 });
