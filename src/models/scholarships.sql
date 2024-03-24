@@ -25,6 +25,7 @@ INSERT INTO
     `scholarship_id`,
     `school_id`,
     `scholarship_name`,
+    `scholarship_description`,
     `program`,
     `degree_level`
   )
@@ -32,7 +33,8 @@ VALUES
   (
     1,
     1,
-    'Scholarship 1',
+    'Graduate School of Computer Science',
+    'Scholarships for graduating students in Computer Science',
     'Computer science',
     'Masters'
   );

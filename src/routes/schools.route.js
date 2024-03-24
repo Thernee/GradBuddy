@@ -3,11 +3,11 @@ import { searchSchools } from "../controllers/schoolSearch.controller.js";
 
 export default (router) => {
   router.get('/schools', getSchools); // get all schools
-  router.get('/schools/:id', getSchool); // get specific school
+  router.get('/schools/:school_id', getSchool); // get specific school
   router.get('/schools/search', searchSchools);
   router.post('/schools', addSchool); // add new: admin
-  router.patch('/schools/:id', updateSchool); // update: admin
-  router.delete('/schools/:id', deleteSchool); // admin
+  router.patch('/schools/:school_id', updateSchool); // update: admin
+  router.delete('/schools/:school_id', deleteSchool); // admin
 
   return router;
 }
