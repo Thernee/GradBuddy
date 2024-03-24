@@ -62,7 +62,7 @@ export const addSchool = catchError(async (req, res) => {
     return errorResponse(res, 'School already exist', StatusCodes.BAD_REQUEST);
   }
 
-  const insertQuery = 'INSERT INTO schools (school_name, state, city, institutionalControl, rank, acceptanceRate, schoolWebsite) VALUES (?, ?, ?, ?, ?, ?, ?)';
+  const insertQuery = 'INSERT INTO schools (school_name, state, city, institutionalControl, `rank`, acceptanceRate, schoolWebsite) VALUES (?, ?, ?, ?, ?, ?, ?)';
   await promisifiedQuery(insertQuery, [school_name, state, city, institutionalControl, rank, acceptanceRate, schoolWebsite]);
 
   return successResponse(res, 'School added successfully');
