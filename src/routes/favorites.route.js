@@ -1,7 +1,9 @@
+import { getFavorites, addFavorite, deleteFavorite } from "../controllers/favorites.controller.js";
+
 export default (router) => {
-  router.get('/favorites');
-  router.post('/favorites/:school_id');
-  router.delete('/favorites/:school_id');
+  router.get('/favorites', getFavorites);
+  router.post('/favorites/:school_id', addFavorite);
+  router.delete('/favorites/:school_id', deleteFavorite);
 
   return router;
 }
