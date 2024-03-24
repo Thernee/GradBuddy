@@ -9,9 +9,9 @@ CREATE TABLE IF NOT EXISTS `schoolCriteria`(
   `criteria_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `school_id` INT NOT NULL,
   `graduateLevel` VARCHAR(255) NOT NULL DEFAULT 'Masters/PhD',
-  `offersScholarships` TINYINT(1) NOT NULL DEFAULT '0',
-  `requiresAppFee` TINYINT(1) NOT NULL DEFAULT '1',
-  `requiresGre` TINYINT(1) NOT NULL DEFAULT '0'
+  `offersScholarships` BOOLEAN NOT NULL DEFAULT false,
+  `requiresAppFee` BOOLEAN NOT NULL DEFAULT true,
+  `requiresGre` BOOLEAN NOT NULL DEFAULT false
 );
 
 -- Add index
@@ -36,7 +36,7 @@ VALUES
     1,
     1,
     'Masters/PhD',
-    0,
-    1,
-    0
+    false,
+    true,
+    false
   );

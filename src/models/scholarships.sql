@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS `scholarships` (
   `scholarship_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `school_id` INT NOT NULL,
   `scholarship_name` VARCHAR(255) NOT NULL,
+  `scholarship_description` VARCHAR(255) NOT NULL,
   `program` VARCHAR(255) NOT NULL,
   `degree_level` VARCHAR(255) NOT NULL
 );

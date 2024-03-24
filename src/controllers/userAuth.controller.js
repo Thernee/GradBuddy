@@ -72,3 +72,14 @@ export const loginUser = catchError(async (req, res) => {
 
   return successResponse(res, 'Login successful', { token });
 });
+
+/**
+ * Logout user
+ * @param req: The request object
+ * @param res: The response object
+ * @returns IErrorResponse
+ * @returns ISuccessResponse
+ */
+export const logoutUser = catchError(async (req, res) => {
+  const { token } = req.body;
+})
