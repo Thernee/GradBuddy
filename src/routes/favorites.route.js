@@ -3,7 +3,7 @@ import { getFavorites, addFavorite, deleteFavorite } from "../controllers/favori
 export default (router) => {
   router.get('/favorites/:user_id', getFavorites);
   router.post('/favorites/:user_id', addFavorite);
-  router.delete('/favorites/:school_id', deleteFavorite);
+  router.delete('/favorites/:user_id', deleteFavorite);
 
   return router;
 }

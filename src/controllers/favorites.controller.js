@@ -78,6 +78,15 @@ export const deleteFavorite = catchError(async (req, res) => {
   const { user_id } = req.params;
   const { school_id } = req.body;
 
+  // check if school exists in database, by school_id
+  const checkSchoolQuery = 'SELECT * FROM schools WHERE school_id = ?';
+  const existingSchool = await promisifiedQuery(checkSchoolQuery, [school_id]);
+
+  if (existingSchool.length === 0) {
+    return errorResponse(res, 'Invalid school', StatusCodes.NOT_FOUND);
+  }
+
+  // check if favorite exists in database, by user_id and school_id
   const checkQuery = 'SELECT * FROM favorites WHERE user_id = ? AND school_id = ?';
   const existingFavorite = await promisifiedQuery(checkQuery, [user_id, school_id]);
 
