@@ -28,6 +28,24 @@ export const getUser = catchError(async (req, res) => {
 });
 
 /**
+ * Get all users
+ * @param req: The request object
+ * @param res: The response object
+ * @returns IErrorResponse
+ * @returns ISuccessResponse
+ */
+export const getAllUsers = catchError(async (req, res) => {
+  const getAllUsersQuery = 'SELECT * FROM users';
+  const users = await promisifiedQuery(getAllUsersQuery);
+
+  if (users.length === 0) {
+    return errorResponse(res, 'No users found', StatusCodes.NOT_FOUND);
+  }
+
+  return successResponse(res, 'Query successful', users)
+})
+
+/**
  * update user
  * @param req: The request object
  * @param res: The response object
