@@ -45,6 +45,26 @@ export const getScholarship = catchError(async (req, res) => {
 });
 
 /**
+ * Get scholarships under a specific school
+ * @param req: The request object
+ * @param res: The response object
+ * @returns IErrorResponse
+ * @returns ISuccessResponse
+ */
+export const getScholarshipsBySchool = catchError(async (req, res) => {
+  const { school_id } = req.params;
+
+  const getScholarshipsQuery = 'SELECT * FROM scholarships WHERE school_id = ?';
+  const scholarships = await promisifiedQuery(getScholarshipsQuery, [school_id]);
+
+  if (scholarships.length === 0) {
+    return errorResponse(res, 'No scholarships found', StatusCodes.NOT_FOUND);
+  }
+
+  return successResponse(res, 'Query successful', scholarships);
+});
+
+/**
  * Add new scholarship
  * @param req The request object
  * @param res The response object
