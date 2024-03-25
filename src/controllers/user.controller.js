@@ -118,10 +118,15 @@ export const updateUserPassword = catchError(async (req, res) => {
     return errorResponse(res, 'No user found', StatusCodes.NOT_FOUND);
   }
 
+  // check if passwor is same as old password
+  if (await bcrypt.compare(password, existingUser[0].hashed_password)) {
+    return errorResponse(res, 'New password cannot be same as old password', StatusCodes.BAD_REQUEST);
+  }
+
   // hash the given password
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  const updateUserQuery = 'UPDATE users SET password = ? WHERE user_id = ?';
+  const updateUserQuery = 'UPDATE users SET hashed_password = ? WHERE user_id = ?';
   await promisifiedQuery(updateUserQuery, [hashedPassword, user_id]);
   
   return successResponse(res, 'User password updated successfully');
