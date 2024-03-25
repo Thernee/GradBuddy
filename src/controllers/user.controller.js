@@ -15,7 +15,8 @@ const promisifiedQuery = util.promisify(db.query).bind(db);
  * @returns ISuccessResponse
  */
 export const getUser = catchError(async (req, res) => {
-  const { user_id } = req.params;
+  // const { user_id } = req.params;
+  const { user_id } = req.user;
 
   const getUserQuery = 'SELECT * FROM users WHERE user_id = ?';
   const user = await promisifiedQuery(getUserQuery, [user_id]);
@@ -53,7 +54,8 @@ export const getAllUsers = catchError(async (req, res) => {
  * @returns ISuccessResponse
  */
 export const updateUser = catchError(async (req, res) => {
-  const { user_id } = req.params;
+  // const { user_id } = req.params;
+  const { user_id } = req.user;
   const updateDetails = req.body;
 
   // check if user exists in database, by user_id
@@ -102,7 +104,8 @@ export const deleteUser = catchError(async (req, res) => {
  * @returns ISuccessResponse
  */
 export const updateUserPassword = catchError(async (req, res) => {
-  const { user_id } = req.params;
+  // const { user_id } = req.params;
+  const { user_id } = req.user;
   const { password, confirmPassword } = req.body;
 
   // check if password and confirm password match
