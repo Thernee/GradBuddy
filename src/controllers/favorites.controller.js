@@ -16,6 +16,14 @@ const promisifiedQuery = util.promisify(db.query).bind(db);
 export const getFavorites = catchError(async (req, res) => {
   const { user_id } = req.params;
 
+  // check if user exists in database, by user_id
+  const checkQuery = 'SELECT * FROM users WHERE user_id = ?';
+  const existingUser = await promisifiedQuery(checkQuery, [user_id]);
+
+  if (existingUser.length === 0) {
+    return errorResponse(res, 'Invalid user', StatusCodes.NOT_FOUND);
+  }
+
   const getFavoritesQuery = 'SELECT * FROM favorites WHERE user_id = ?';
   const favorites = await promisifiedQuery(getFavoritesQuery, [user_id]);
 
@@ -37,6 +45,15 @@ export const addFavorite = catchError(async (req, res) => {
   const { user_id } = req.params;
   const { school_id } = req.body;
 
+  // chheck if school exists in database, by school_id
+  const checkSchoolQuery = 'SELECT * FROM schools WHERE school_id = ?';
+  const existingSchool = await promisifiedQuery(checkSchoolQuery, [school_id]);
+
+  if (existingSchool.length === 0) {
+    return errorResponse(res, 'Invalid school', StatusCodes.NOT_FOUND);
+  }
+
+  // check if favorite exists in database, by user_id and school_id
   const checkQuery = 'SELECT * FROM favorites WHERE user_id = ? AND school_id = ?';
   const existingFavorite = await promisifiedQuery(checkQuery, [user_id, school_id]);
 
