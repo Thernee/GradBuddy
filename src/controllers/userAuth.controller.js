@@ -35,7 +35,7 @@ export const registerUser = catchError(async (req, res) => {
   const hashedPassword = await bcrypt.hash(password, 10);
   const user_id = uuidv4();
 
-  const insertUserQuery = 'INSERT INTO users (user_id, username, fullname, email, password, nationality) VALUES (?, ?, ?, ?, ?, ?)';
+  const insertUserQuery = 'INSERT INTO users (user_id, username, fullname, email, hashed_password, nationality) VALUES (?, ?, ?, ?, ?, ?)';
   await promisifiedQuery(insertUserQuery, [user_id, username, fullname, email, hashedPassword, nationality]);
 
   return successResponse(res, 'User created successfully');
@@ -62,13 +62,13 @@ export const loginUser = catchError(async (req, res) => {
 
   const user = existingUser[0];
 
-  const passwordMatch = await bcrypt.compare(password, user.password);
+  const passwordMatch = await bcrypt.compare(password, user.hashed_password);
 
   if (!passwordMatch) {
     return errorResponse(res, 'Invalid password', StatusCodes.UNAUTHORIZED);
   }
 
-  const token = jwt.sign({ user_id: user.user_id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '1h'});
+  const token = jwt.sign({ user_id: user.user_id }, process.env.JWT_SECRET, { expiresIn: '1h'});
 
   return successResponse(res, 'Login successful', { token });
 });
