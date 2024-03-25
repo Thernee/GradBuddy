@@ -39,7 +39,8 @@ export const searchSchools = catchError(async (req, res) => {
     values.push(institutionalControl);
   }
   if (rank) {
-    conditions.push('rank = ?');
+    // escape the rank keyword reserved by mysql
+    conditions.push('`rank` = ?');
     values.push(rank);
   }
   if (acceptanceRate) {
