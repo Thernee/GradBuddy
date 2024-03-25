@@ -14,7 +14,8 @@ const promisifiedQuery = util.promisify(db.query).bind(db);
  * @returns ISuccessResponse
  * */
 export const getFavorites = catchError(async (req, res) => {
-  const { user_id } = req.params;
+  // const { user_id } = req.params;
+  const { user_id } = req.user;
 
   // check if user exists in database, by user_id
   const checkQuery = 'SELECT * FROM users WHERE user_id = ?';
@@ -42,7 +43,8 @@ export const getFavorites = catchError(async (req, res) => {
  * @returns ISuccessResponse
  * */
 export const addFavorite = catchError(async (req, res) => {
-  const { user_id } = req.params;
+  // const { user_id } = req.params;
+  const { user_id } = req.user;
   const { school_id } = req.body;
 
   // chheck if school exists in database, by school_id
@@ -75,7 +77,8 @@ export const addFavorite = catchError(async (req, res) => {
  * @returns ISuccessResponse
  **/
 export const deleteFavorite = catchError(async (req, res) => {
-  const { user_id } = req.params;
+  // const { user_id } = req.params;
+  const { user_id } = req.user;
   const { school_id } = req.body;
 
   // check if school exists in database, by school_id

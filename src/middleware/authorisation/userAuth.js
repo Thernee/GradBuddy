@@ -1,10 +1,10 @@
 import { StatusCodes } from "http-status-codes";
-import db from '../../../config/db';
+import db from '../../../config/db.js';
 import util from "util";
-import catchError from "../utils/errorHandle";
 import jwt from "jsonwebtoken";
 
-import { errorResponse } from "../../utils/responseHandle";
+import catchError from "../../utils/errorHandle.js";
+import { errorResponse } from "../../utils/responseHandle.js";
 
 const promisifiedQuery = util.promisify(db.query).bind(db);
 
