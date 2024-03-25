@@ -58,7 +58,7 @@ export const getScholarshipsBySchool = catchError(async (req, res) => {
   const scholarships = await promisifiedQuery(getScholarshipsQuery, [school_id]);
 
   if (scholarships.length === 0) {
-    return errorResponse(res, 'No scholarships found', StatusCodes.NOT_FOUND);
+    return errorResponse(res, 'No scholarships found for this school', StatusCodes.NOT_FOUND);
   }
 
   return successResponse(res, 'Query successful', scholarships);
@@ -79,6 +79,14 @@ export const addScholarship = catchError(async (req, res) => {
 
   if (school.length === 0) {
     return errorResponse(res, 'School not found', StatusCodes.NOT_FOUND);
+  }
+
+  // check if scholarship already exists in database, by scholarship name and school id
+  const checkQuery = 'SELECT * FROM scholarships WHERE scholarship_name = ? AND school_id = ?';
+  const existingScholarship = await promisifiedQuery(checkQuery, [scholarship_name, school_id]);
+
+  if (existingScholarship.length > 0) {
+    return errorResponse(res, 'Scholarship already exist', StatusCodes.BAD_REQUEST);
   }
 
   const addScholarshipQuery = 'INSERT INTO scholarships (school_id, scholarship_name, scholarship_description, program, degree_level) VALUES (?, ?, ?, ?, ?)';
@@ -133,3 +141,26 @@ export const deleteScholarship = catchError(async (req, res) => {
 
   return successResponse(res, 'Scholarship deleted successfully');
 });
+
+/**
+ * Delete all scholarships for a specific school
+ * @param req: The request object
+ * @param res: The response object
+ * @returns IErrorResponse
+ * @returns ISuccessResponse
+ */
+export const deleteScholarshipsBySchool = catchError(async (req, res) => {
+  const { school_id } = req.params;
+
+  const idQuery = 'SELECT * FROM schools WHERE school_id = ?';
+  const school = await promisifiedQuery(idQuery, [school_id]);
+
+  if (school.length === 0) {
+    return errorResponse(res, 'School not found', StatusCodes.NOT_FOUND);
+  }
+
+  const deleteScholarshipsQuery = 'DELETE FROM scholarships WHERE school_id = ?';
+  await promisifiedQuery(deleteScholarshipsQuery, [school_id]);
+
+  return successResponse(res, 'All scholarships deleted successfully for this school');
+})
