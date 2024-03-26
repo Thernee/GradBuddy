@@ -17,7 +17,7 @@ export const validateUpdateUser = async (req, res, next) => {
     .notEmpty()
     .run(req);
 
-  const emailCheck = body('email', 'Email is required')
+  const emailCheck = body('email', 'Valid email is required')
     .optional()
     .trim()
     .isEmail()
