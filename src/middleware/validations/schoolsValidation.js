@@ -101,7 +101,6 @@ export const validateUpdateSchool = async (req, res, next) => {
   const acceptanceRateCheck = body('acceptanceRate', 'Acceptance rate is required')
     .trim()
     .optional()
-    .notEmpty()
     .isFloat()
     .run(req);
 
