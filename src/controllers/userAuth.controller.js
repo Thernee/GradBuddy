@@ -25,7 +25,15 @@ export const registerUser = catchError(async (req, res) => {
   const existingUser = await promisifiedQuery(checkQuery, [username]);
 
   if (existingUser.length > 0) {
-    return errorResponse(res, 'User already exists', StatusCodes.BAD_REQUEST);
+    return errorResponse(res, 'Username already exists', StatusCodes.BAD_REQUEST);
+  }
+
+  // check if user exists in database, by email
+  const checkEmailQuery = 'SELECT * FROM users WHERE email = ?';
+  const existingEmail = await promisifiedQuery(checkEmailQuery, [email]);
+
+  if (existingEmail.length > 0) {
+    return errorResponse(res, 'Email already exists', StatusCodes.BAD_REQUEST);
   }
 
   if (password !== confirmPassword) {

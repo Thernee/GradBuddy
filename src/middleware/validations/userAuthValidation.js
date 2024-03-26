@@ -15,27 +15,27 @@ export const validateRegisterUser = async (req, res, next) => {
     .isLength({ min: 3 })
     .run(req);
 
-  const emailCheck = body('email', 'Email is required')
+  const emailCheck = body('email', 'Valid email is required')
     .trim()
     .isEmail()
     .run(req);
 
-  const usernameCheck = body('username', 'Username is required')
+  const usernameCheck = body('username', 'Username is required and must be at least 6 characters')
     .trim()
-    .isLength({ min: 3 })
+    .isLength({ min: 6 })
     .run(req);
 
-  const passwordCheck = body('password', 'Password is required')
-    .trim()
-    .isLength({ min: 8 })
-    .run(req);
-
-  const confirmPasswordCheck = body('confirmPassword', 'Confirm password is required')
+  const passwordCheck = body('password', 'Password is required and must be at least 8 characters')
     .trim()
     .isLength({ min: 8 })
     .run(req);
 
-  const nationalityCheck = body('nationality', 'Nationality is required')
+  const confirmPasswordCheck = body('confirmPassword', 'Confirm password is required and must be at least 8 characters')
+    .trim()
+    .isLength({ min: 8 })
+    .run(req);
+
+  const nationalityCheck = body('nationality', 'Nationality is required and must be at least 3 characters')
     .trim()
     .isLength({ min: 3 })
     .run(req);
