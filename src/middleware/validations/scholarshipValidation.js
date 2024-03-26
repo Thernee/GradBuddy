@@ -1,5 +1,5 @@
 import { StatusCodes } from "http-status-codes";
-import { errorResponse } from "../../utils/responseHandle";
+import { errorResponse } from "../../utils/responseHandle.js";
 import { body, validationResult } from "express-validator";
 
 /**
@@ -23,7 +23,7 @@ export const validateAddScholarship = async (req, res, next) => {
 
   const scholarshipDescriptionCheck = body('scholarship_description', 'Scholarship description is required')
     .trim()
-    .isLength({ min: 3 })
+    .isLength({ min: 8 })
     .notEmpty()
     .run(req);
 
@@ -62,16 +62,16 @@ export const validateUpdateScholarship = async (req, res, next) => {
     .isInt()
     .run(req);
 
-  const scholarshipNameCheck = body('scholarship_name', 'Scholarship name is required')
+  const scholarshipNameCheck = body('scholarship_name', 'Scholarship name is required and must be greater than 3 characters')
     .trim()
     .optional()
     .isLength({ min: 3 })
     .run(req);
 
-  const scholarshipDescriptionCheck = body('scholarship_description', 'Scholarship description is required')
+  const scholarshipDescriptionCheck = body('scholarship_description', 'Scholarship description is required and must be greater than 8 characters')
     .trim()
     .optional()
-    .isLength({ min: 3 })
+    .isLength({ min: 8 })
     .run(req);
 
   const programCheck = body('program', 'Program is required')
