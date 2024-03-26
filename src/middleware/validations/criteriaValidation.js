@@ -1,5 +1,5 @@
 import { StatusCodes } from "http-status-codes";
-import { errorResponse } from "../../utils/responseHandle";
+import { errorResponse } from "../../utils/responseHandle.js";
 import { body, validationResult } from "express-validator";
 
 /**
@@ -9,10 +9,10 @@ import { body, validationResult } from "express-validator";
  * @returns IValidationError
  */
 export const validateCreateCriteria = [
-  body('school_id', 'School id is required and must be an integer')
-    .trim()
-    .notEmpty()
-    .isInt(),
+  // body('school_id', 'School id is required and must be an integer')
+  //   .trim()
+  //   .notEmpty()
+  //   .isInt(),
 
   body('graduateLevel', 'Graduate level is required')
     .trim()
@@ -50,10 +50,10 @@ export const validateCreateCriteria = [
  * @returns IValidationError
  */
 export const validateUpdateCriteria = async (req, res, next) => {
-  const schoolIdCheck = body('school_id', 'School id is required and must be an integer')
-    .notEmpty()
-    .isInt()
-    .run(req);
+  // const schoolIdCheck = body('school_id', 'School id is required and must be an integer')
+  //   .notEmpty()
+  //   .isInt()
+  //   .run(req);
 
   const graduateLevelCheck = body('graduateLevel', 'Graduate level is required')
     .trim()
@@ -76,7 +76,7 @@ export const validateUpdateCriteria = async (req, res, next) => {
     .isBoolean()
     .run(req);
 
-  await Promise.all([schoolIdCheck, graduateLevelCheck, offersScholarshipsCheck, requiresAppFeeCheck, requiresGreCheck]);
+  await Promise.all([graduateLevelCheck, offersScholarshipsCheck, requiresAppFeeCheck, requiresGreCheck]);
 
   const errors = validationResult(req);
 
