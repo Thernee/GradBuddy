@@ -4,7 +4,18 @@ import express from "express";
 import cors from "cors";
 import { StatusCodes } from "http-status-codes";
 
+//for swagger API documentation
+// import swaggerJSDoc from "swagger-jsdoc";
+// import swaggerUi from "swagger-ui-express";
+// import swaggerOptions from "../apidocs/swaggerDoc.js";
+
+// Initialize swaggerJSDoc
+// const swaggerSpec = swaggerJSDoc(options);
+
 const app = express();
+
+// swagger route
+// app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // middlewares
 app.use(cors());
@@ -15,6 +26,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/v1", routes);
 
 // Index route
+
 app.get("/", (req, res) => {
   return successResponse(res, "Welcome to the Gradbuddy School  API");
 });
