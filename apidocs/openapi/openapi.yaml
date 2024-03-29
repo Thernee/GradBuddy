@@ -50,8 +50,16 @@ paths:
           description: Not Found
           content:
             application/json:
-              success: false
-              message: Users not found
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                example:
+                  success: false
+                  message: Users not found
 
   /users/{id}:
     get:
@@ -74,8 +82,16 @@ paths:
           description: Not Found
           content:
             application/json:
-              success: false
-              message: User not found
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                example:
+                  success: false
+                  message: User not found
 
     patch:
       summary: Update user
@@ -109,8 +125,16 @@ paths:
           description: Not Found
           content:
             application/json:
-              success: false
-              message: User not found
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                example:
+                  success: false
+                  message: User not found
 
     delete:
       summary: Delete user
@@ -127,8 +151,16 @@ paths:
           description: Not Found
           content:
             application/json:
-              success: false
-              message: User not found
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                example:
+                  success: false
+                  message: User not found
   
   /users/updatePassword/{id}:
     put:
@@ -157,8 +189,16 @@ paths:
           description: Not Found
           content:
             application/json:
-              success: false
-              message: User not found
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                example:
+                  success: false
+                  message: User not found
 
   /register:
     post:
@@ -193,14 +233,31 @@ paths:
           description: Conflict
           content:
             application/json:
-              success: false
-              message: User already exists
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                example:
+                  success: false
+                  message: User already exists
+
         400:
           description: Bad Request
           content:
             application/json:
-              success: false
-              message: Invalid request payload
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                example:
+                  success: false
+                  message: Invalid request payload
 
   /login:
     post:
@@ -229,14 +286,31 @@ paths:
           description: Not Found
           content:
             application/json:
-              success: false
-              message: User not found
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                example:
+                  success: false
+                  message: User not found
+
         401:
           description: Unauthorized
           content:
             application/json:
-              success: false
-              message: Invalid username or password
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean 
+                  message:
+                    type: string
+                example:
+                  success: false
+                  message: Invalid username or password
 
   /logout:
     post:
@@ -254,8 +328,31 @@ paths:
           description: Not Found
           content:
             application/json:
-              success: false
-              message: User not found
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                example:
+                  success: false
+                  message: User not found
+
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                example:
+                  success: false
+                  message: Invalid token
   
   /schools:
     get:
@@ -311,8 +408,16 @@ paths:
           description: Not Found
           content:
             application/json:
-              success: false
-              message: Schools not found
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: Schools not found
 
   /schools/{id}:
     get:
@@ -337,8 +442,16 @@ paths:
           description: Not Found
           content:
             application/json:
-              success: false
-              message: School not found
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: School not found
     
     patch:
       summary: Update school
@@ -377,8 +490,16 @@ paths:
           description: Not Found
           content:
             application/json:
-              success: false
-              message: School not found
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: School not found
 
     delete:
       summary: Delete school
@@ -395,8 +516,16 @@ paths:
           description: Not Found
           content:
             application/json:
-              success: false
-              message: School not found
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: School not found
     
     post:
       summary: Create school
@@ -435,8 +564,16 @@ paths:
           description: Bad Request
           content:
             application/json:
-              success: false
-              message: School already exists
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: Invalid request body
         
     /criteria/{school_id}:
       get:
@@ -477,8 +614,16 @@ paths:
             description: Not Found
             content:
               application/json:
-                success: false
-                message: Criteria not found for given school id
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    message:
+                      type: string
+                example:
+                  success: false
+                  message: School not found
     
       post:
         summary: Create criteria
@@ -513,8 +658,16 @@ paths:
             description: Bad Request
             content:
               application/json:
-                success: false
-                message: Criteria already exists
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    message:
+                      type: string
+                example:
+                  success: false
+                  message: School not found
 
       delete:
         summary: Delete criteria
@@ -531,8 +684,16 @@ paths:
             description: Not Found
             content:
               application/json:
-                success: false
-                message: Criteria not found for given school id
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    message:
+                      type: string
+                example:
+                  success: false
+                  message: Criteria not found for given school id
 
       patch:
         summary: Update criteria
@@ -567,8 +728,16 @@ paths:
             description: Not Found
             content:
               application/json:
-                success: false
-                message: Criteria not found for given school id
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    message:
+                      type: string
+                example:
+                  success: false
+                  message: Criteria not found for given school id
 
   /favorites/{user_id}:
     get:
@@ -588,8 +757,16 @@ paths:
           description: Not Found
           content:
             application/json:
-              success: false
-              message: Favorites not found
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: Favorites not found
 
     post:
       summary: Create favorite
@@ -618,8 +795,16 @@ paths:
           description: Not Found
           content:
             application/json:
-              success: false
-              message: User or school not found
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: User or school not found
 
     delete:
       summary: Delete favorite
@@ -636,8 +821,16 @@ paths:
           description: Not Found
           content:
             application/json:
-              success: false
-              message: Favorite not found for given user id
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: Favorite not found for given user id
 
   /scholarships:
     get:
@@ -665,8 +858,16 @@ paths:
           description: Not Found
           content:
             application/json:
-              success: false
-              message: Scholarships not found
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: Scholarships not found
 
     post:
       summary: Create scholarship
@@ -703,8 +904,16 @@ paths:
           description: Not Found
           content:
             application/json:
-              success: false
-              message: School not found
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: School not found
 
     delete:
       summary: Delete scholarship
@@ -721,8 +930,16 @@ paths:
           description: Not Found
           content:
             application/json:
-              success: false
-              message: Scholarship not found for given school id
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: Scholarship not found for given school
         
     patch:
       summary: Update scholarship
@@ -759,8 +976,16 @@ paths:
           description: Not Found
           content:
             application/json:
-              success: false
-              message: Scholarship not found for given school id
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: Scholarship not found for given school
   
   /scholarships/{school_id}:
     get:
@@ -788,8 +1013,16 @@ paths:
           description: Not Found
           content:
             application/json:
-              success: false
-              message: Scholarships not found for given school
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: Scholarships not found for given school
 
     delete:
       summary: Delete scholarship all scholarships for a school
@@ -806,8 +1039,16 @@ paths:
           description: Not Found
           content:
             application/json:
-              success: false
-              message: Scholarships not found for given school
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: Scholarships not found for given school
     
   /scholarships/{school_id}/{scholarship_id}:
     delete:
@@ -825,8 +1066,16 @@ paths:
           description: Not Found
           content:
             application/json:
-              success: false
-              message: Scholarship not found for given school
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: Scholarship not found for given school
 
     patch:
       summary: Update scholarship
@@ -863,9 +1112,17 @@ paths:
           description: Not Found
           content:
             application/json:
-              success: false
-              message: Scholarship not found for given school
-    
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: Scholarship not found for given school
+
   /search:
     get:
       summary: Search schools based on criteria
@@ -920,7 +1177,14 @@ paths:
           description: Not Found
           content:
             application/json:
-              success: false
-              message: No schools found for given criteria
-      
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: Schools not found
   
