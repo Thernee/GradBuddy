@@ -62,11 +62,18 @@ paths:
                   success: false
                   message: Users not found
 
-  /users/{id}:
+  /users/{user_id}:
     get:
       summary: Get user by id
       description: Fetch a registered user data from the database
       operationId: getUser
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 123e4567-e89b-12d3-a456-426655441234
       responses:
         200:
           description: OK
@@ -99,6 +106,13 @@ paths:
       summary: Update user
       description: Update a registered user data in the database
       operationId: updateUser
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 123e4567-e89b-12d3-a456-426655441234
       requestBody:
         required: true
         content:
@@ -143,6 +157,13 @@ paths:
       summary: Delete user
       description: Delete a registered user data from the database
       operationId: deleteUser
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 123e4567-e89b-12d3-a456-426655441234
       responses:
         200:
           description: OK
@@ -166,11 +187,18 @@ paths:
                   success: false
                   message: User not found
   
-  /users/updatePassword/{id}:
+  /users/updatePassword/{user_id}:
     put:
       summary: Update user password
       description: Update a registered user password in the database
       operationId: updateUserPassword
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 123e4567-e89b-12d3-a456-426655441234
       requestBody:
         required: true
         content:
@@ -428,11 +456,67 @@ paths:
                 success: false
                 message: Schools not found
 
-  /schools/{id}:
+    post:
+      summary: Create school
+      description: Create a new school in the database
+      operationId: createSchool
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                school_name:
+                  type: string
+                state:
+                  type: string
+                city:
+                  type: string
+                institutionalControl:
+                  type: string
+                rank:
+                  type: integer
+                acceptanceRate:
+                  type: number
+                schoolWebsite:
+                  type: string
+
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              example:
+                success: true
+                message: School created successfully
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: Invalid request body
+
+  /schools/{school_id}:
     get:
       summary: Get school by id
       description: Fetch a school data from the database
       operationId: getSchoolById
+      parameters:
+        - name: school_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 23
       responses:
         200:
           description: OK
@@ -467,6 +551,13 @@ paths:
       summary: Update school
       description: Update a school data in the database
       operationId: updateSchool
+      parameters:
+        - name: school_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 231
       requestBody:
         required: true
         content:
@@ -516,6 +607,13 @@ paths:
       summary: Delete school
       description: Delete a school data in the database
       operationId: deleteSchool
+      parameters:
+        - name: school_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 537
       responses:
         200:
           description: OK
@@ -538,11 +636,76 @@ paths:
               example:
                 success: false
                 message: School not found
-    
+        
+  /criteria/{school_id}:
+    get:
+      summary: Get criteria by school id
+      description: Fetch criteria data from the database
+      operationId: getCriteriaBySchoolId
+      parameters:
+        - name: school_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 23
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    criteria_id:
+                      type: integer
+                    school_id:
+                      type: integer
+                    graduateLevel:
+                      type: string
+                    offersScholarship:
+                      type: boolean
+                    requiresAppFee:
+                      type: boolean
+                    requiresGre:
+                      type: boolean
+
+              example:
+                - criteria_id: 12
+                  school_id: 23
+                  graduateLevel: Masters
+                  offersScholarship: true
+                  requiresAppFee: true
+                  requiresGre: true
+
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                success: false
+                message: School not found
+  
     post:
-      summary: Create school
-      description: Create a new school in the database
-      operationId: createSchool
+      summary: Create criteria
+      description: Create a new criteria for a school in the database
+      operationId: createCriteria
+      parameters:
+        - name: school_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 23
       requestBody:
         required: true
         content:
@@ -550,20 +713,16 @@ paths:
             schema:
               type: object
               properties:
-                school_name:
-                  type: string
-                state:
-                  type: string
-                city:
-                  type: string
-                institutionalControl:
-                  type: string
-                rank:
+                school_id:
                   type: integer
-                acceptanceRate:
-                  type: number
-                schoolWebsite:
+                graduateLevel:
                   type: string
+                offersScholarship:
+                  type: boolean
+                requiresAppFee:
+                  type: boolean
+                requiresGre:
+                  type: boolean
 
       responses:
         200:
@@ -572,7 +731,7 @@ paths:
             application/json:
               example:
                 success: true
-                message: School created successfully
+                message: Criteria created successfully
         400:
           description: Bad Request
           content:
@@ -586,181 +745,106 @@ paths:
                     type: string
               example:
                 success: false
-                message: Invalid request body
-        
-    /criteria/{school_id}:
-      get:
-        summary: Get criteria by school id
-        description: Fetch criteria data from the database
-        operationId: getCriteriaBySchoolId
-        responses:
-          200:
-            description: OK
-            content:
-              application/json:
-                schema:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      criteria_id:
-                        type: integer
-                      school_id:
-                        type: integer
-                      graduateLevel:
-                        type: string
-                      offersScholarship:
-                        type: boolean
-                      requiresAppFee:
-                        type: boolean
-                      requiresGre:
-                        type: boolean
+                message: School not found
 
-                example:
-                  - criteria_id: 12
-                    school_id: 23
-                    graduateLevel: Masters
-                    offersScholarship: true
-                    requiresAppFee: true
-                    requiresGre: true
-
-          404:
-            description: Not Found
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    success:
-                      type: boolean
-                    message:
-                      type: string
-                example:
-                  success: false
-                  message: School not found
-    
-      post:
-        summary: Create criteria
-        description: Create a new criteria for a school in the database
-        operationId: createCriteria
-        requestBody:
+    delete:
+      summary: Delete criteria
+      description: Delete a criteria for a school in the database
+      operationId: deleteCriteria
+      parameters:
+        - name: school_id
+          in: path
           required: true
+          schema:
+            type: integer
+          example: 230
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              example:
+                success: true
+                message: Criteria deleted successfully
+        404:
+          description: Not Found
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  school_id:
-                    type: integer
-                  graduateLevel:
+                  success:
+                    type: boolean
+                  message:
                     type: string
-                  offersScholarship:
-                    type: boolean
-                  requiresAppFee:
-                    type: boolean
-                  requiresGre:
-                    type: boolean
+              example:
+                success: false
+                message: Criteria not found for given school id
 
-        responses:
-          200:
-            description: OK
-            content:
-              application/json:
-                example:
-                  success: true
-                  message: Criteria created successfully
-          400:
-            description: Bad Request
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    success:
-                      type: boolean
-                    message:
-                      type: string
-                example:
-                  success: false
-                  message: School not found
-
-      delete:
-        summary: Delete criteria
-        description: Delete a criteria for a school in the database
-        operationId: deleteCriteria
-        responses:
-          200:
-            description: OK
-            content:
-              application/json:
-                example:
-                  success: true
-                  message: Criteria deleted successfully
-          404:
-            description: Not Found
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    success:
-                      type: boolean
-                    message:
-                      type: string
-                example:
-                  success: false
-                  message: Criteria not found for given school id
-
-      patch:
-        summary: Update criteria
-        description: Update a criteria for a school in the database
-        operationId: updateCriteria
-        requestBody:
+    patch:
+      summary: Update criteria
+      description: Update a criteria for a school in the database
+      operationId: updateCriteria
+      parameters:
+        - name: school_id
+          in: path
           required: true
+          schema:
+            type: integer
+          example: 230
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                school_id:
+                  type: integer
+                graduateLevel:
+                  type: string
+                offersScholarship:
+                  type: boolean
+                requiresAppFee:
+                  type: boolean
+                requiresGre:
+                  type: boolean
+
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              example:
+                success: true
+                message: Criteria updated successfully
+        404:
+          description: Not Found
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  school_id:
-                    type: integer
-                  graduateLevel:
+                  success:
+                    type: boolean
+                  message:
                     type: string
-                  offersScholarship:
-                    type: boolean
-                  requiresAppFee:
-                    type: boolean
-                  requiresGre:
-                    type: boolean
-
-        responses:
-          200:
-            description: OK
-            content:
-              application/json:
-                example:
-                  success: true
-                  message: Criteria updated successfully
-          404:
-            description: Not Found
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    success:
-                      type: boolean
-                    message:
-                      type: string
-                example:
-                  success: false
-                  message: Criteria not found for given school id
+              example:
+                success: false
+                message: Criteria not found for given school id
 
   /favorites/{user_id}:
     get:
       summary: Get favorites
       description: Fetch favorite data from the database
       operationId: getFavorites
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 123e4567-e89b-12d3-a456-426655441234
       responses:
         200:
           description: OK
@@ -790,6 +874,13 @@ paths:
       summary: Create favorite
       description: Create a new favorite for a user in the database
       operationId: createFavorite
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 123e4567-e89b-12d3-a456-426655441234
       requestBody:
         required: true
         content:
@@ -829,6 +920,13 @@ paths:
       summary: Delete favorite
       description: Delete a favorite for a user in the database
       operationId: deleteFavorite
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 123e4567-e89b-12d3-a456-426655441234
       responses:
         200:
           description: OK
@@ -939,8 +1037,8 @@ paths:
 
     delete:
       summary: Delete scholarship
-      description: Delete a scholarship for a school in the database
-      operationId: deleteScholarship
+      description: Delete all scholarship in the database
+      operationId: deleteScholarships
       responses:
         200:
           description: OK
@@ -948,7 +1046,7 @@ paths:
             application/json:
               example:
                 success: true
-                message: Scholarship deleted successfully
+                message: Scholarships deleted successfully
         404:
           description: Not Found
           content:
@@ -962,60 +1060,20 @@ paths:
                     type: string
               example:
                 success: false
-                message: Scholarship not found for given school
-        
-    patch:
-      summary: Update scholarship
-      description: Update a scholarship for a school in the database
-      operationId: updateScholarship
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                school_id:
-                  type: integer
-                scholarship_id:
-                  type: integer
-                scholarship_name:
-                  type: string
-                scholarship_description:
-                  type: string
-                program:
-                  type: string
-                degree_level:
-                  type: string
-
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              example:
-                success: true
-                message: Scholarship updated successfully
-        404:
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                  message:
-                    type: string
-              example:
-                success: false
-                message: Scholarship not found for given school
+                message: Scholarships not found
   
   /scholarships/{school_id}:
     get:
       summary: Get all scholarships by school id
       description: Fetch all scholarship data from the database
       operationId: getScholarshipsBySchoolId
+      parameters:
+        - name: school_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 1753
       responses:
         200:
           description: OK
@@ -1050,9 +1108,16 @@ paths:
                 message: Scholarships not found for given school
 
     delete:
-      summary: Delete scholarship all scholarships for a school
+      summary: Delete all scholarships for a school
       description: Delete all scholarship for a school in the database regardless of id
       operationId: deleteScholarshipsBySchoolId
+      parameters:
+        - name: school_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 1753
       responses:
         200:
           description: OK
@@ -1081,6 +1146,20 @@ paths:
       summary: Delete scholarship
       description: Delete a scholarship for a school in the database
       operationId: deleteScholarship
+      parameters:
+        - name: school_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 1753
+        - name: scholarship_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 1000
+
       responses:
         200:
           description: OK
@@ -1108,6 +1187,20 @@ paths:
       summary: Update scholarship
       description: Update a scholarship for a school in the database
       operationId: updateScholarship
+      parameters:
+        - name: school_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 1753
+        - name: scholarship_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 1000
+
       requestBody:
         required: true
         content:
