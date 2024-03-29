@@ -1,0 +1,97 @@
+delete:
+  summary: Delete scholarship
+  description: Delete a scholarship for a school in the database
+  operationId: deleteScholarship
+  parameters:
+    - name: school_id
+      in: path
+      required: true
+      schema:
+        type: integer
+      example: 1753
+    - name: scholarship_id
+      in: path
+      required: true
+      schema:
+        type: integer
+      example: 1000
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          example:
+            success: true
+            message: Scholarship deleted successfully
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+              message:
+                type: string
+          example:
+            success: false
+            message: Scholarship not found for given school
+patch:
+  summary: Update scholarship
+  description: Update a scholarship for a school in the database
+  operationId: updateScholarship
+  parameters:
+    - name: school_id
+      in: path
+      required: true
+      schema:
+        type: integer
+      example: 1753
+    - name: scholarship_id
+      in: path
+      required: true
+      schema:
+        type: integer
+      example: 1000
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            school_id:
+              type: integer
+            scholarship_id:
+              type: integer
+            scholarship_name:
+              type: string
+            scholarship_description:
+              type: string
+            program:
+              type: string
+            degree_level:
+              type: string
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          example:
+            success: true
+            message: Scholarship updated successfully
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+              message:
+                type: string
+          example:
+            success: false
+            message: Scholarship not found for given school

@@ -1,0 +1,51 @@
+post:
+  summary: Login user
+  description: Login a registered user in the database
+  operationId: loginUser
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            username:
+              type: string
+            hashed_password:
+              type: string
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          example:
+            success: true
+            message: User logged in successfully
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+              message:
+                type: string
+            example:
+              success: false
+              message: Invalid username or password
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+              message:
+                type: string
+            example:
+              success: false
+              message: User not found

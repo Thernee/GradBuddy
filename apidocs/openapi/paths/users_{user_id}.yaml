@@ -1,0 +1,120 @@
+get:
+  summary: Get user by id
+  description: Fetch a registered user data from the database
+  operationId: getUser
+  parameters:
+    - name: user_id
+      in: path
+      required: true
+      schema:
+        type: string
+      example: 123e4567-e89b-12d3-a456-426655441234
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          example:
+            user_id: 123e4567-e89b-12d3-a456-426655441234
+            fullname: Sani Abubakar Adam
+            email: saniadam@me.com
+            username: saniadam
+            hashed_password: $2b$10$DqzQqQpXsZ7NqVQXcVH0G.0DxJ2EwvX4jXZqz6n5h9v0u2W9si
+            nationality: Nigeria
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+              message:
+                type: string
+            example:
+              success: false
+              message: User not found
+patch:
+  summary: Update user
+  description: Update a registered user data in the database
+  operationId: updateUser
+  parameters:
+    - name: user_id
+      in: path
+      required: true
+      schema:
+        type: string
+      example: 123e4567-e89b-12d3-a456-426655441234
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            fullname:
+              type: string
+            email:
+              type: string
+            username:
+              type: string
+            hashed_password:
+              type: string
+            nationality:
+              type: string
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          example:
+            success: true
+            message: User profile updated successfully
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+              message:
+                type: string
+            example:
+              success: false
+              message: User not found
+delete:
+  summary: Delete user
+  description: Delete a registered user data from the database
+  operationId: deleteUser
+  parameters:
+    - name: user_id
+      in: path
+      required: true
+      schema:
+        type: string
+      example: 123e4567-e89b-12d3-a456-426655441234
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          example:
+            success: true
+            message: User deleted successfully
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+              message:
+                type: string
+            example:
+              success: false
+              message: User not found

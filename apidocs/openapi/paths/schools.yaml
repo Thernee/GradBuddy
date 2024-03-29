@@ -1,0 +1,108 @@
+get:
+  summary: Get all schools
+  description: Fetch all school data from the database
+  operationId: getAllSchools
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                school_id:
+                  type: integer
+                school_name:
+                  type: string
+                state:
+                  type: string
+                city:
+                  type: string
+                institutionalControl:
+                  type: string
+                rank:
+                  type: integer
+                acceptanceRate:
+                  type: number
+                schoolWebsite:
+                  type: string
+          example:
+            - school_id: 23
+              school_name: Albert Einstein School
+              state: Lagos
+              city: Ikeja
+              institutionalControl: Private
+              rank: 354
+              acceptanceRate: 45.7
+              schoolWebsite: https://www.albeinstein.com
+            - school_id: 24
+              school_name: Charles Darwin School
+              state: Abuja
+              city: Abuja
+              institutionalControl: Public
+              rank: 354
+              acceptanceRate: 45.7
+              schoolWebsite: https://www.charlesdarwin.com
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+              message:
+                type: string
+          example:
+            success: false
+            message: Schools not found
+post:
+  summary: Create school
+  description: Create a new school in the database
+  operationId: createSchool
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            school_name:
+              type: string
+            state:
+              type: string
+            city:
+              type: string
+            institutionalControl:
+              type: string
+            rank:
+              type: integer
+            acceptanceRate:
+              type: number
+            schoolWebsite:
+              type: string
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          example:
+            success: true
+            message: School created successfully
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+              message:
+                type: string
+          example:
+            success: false
+            message: Invalid request body

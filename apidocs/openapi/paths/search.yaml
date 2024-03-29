@@ -1,0 +1,64 @@
+get:
+  summary: Search schools based on criteria
+  description: >-
+    Search schools based on criteria like name, state, city, rank, acceptance
+    rate, and more
+  operationId: searchSchool
+  parameters:
+    - in: query
+      name: name
+      schema:
+        type: string
+      description: Approximate name of the school
+    - in: query
+      name: state
+      schema:
+        type: string
+      description: State the school is located in
+    - in: query
+      name: city
+      schema:
+        type: string
+      description: City the school is located in
+    - in: query
+      name: rank
+      schema:
+        type: integer
+      description: Rank of the school
+    - in: query
+      name: acceptance_rate
+      schema:
+        type: number
+      description: Acceptance rate of the school
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          example:
+            - name: MIT
+              state: MA
+              city: Boston
+              rank: 1
+              acceptance_rate: 10.8
+              school_website: https://www.mit.edu
+            - name: Stanford
+              state: CA
+              city: Stanford
+              rank: 10
+              acceptance_rate: 45.7
+              school_website: https://www.stanford.edu
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+              message:
+                type: string
+          example:
+            success: false
+            message: Schools not found

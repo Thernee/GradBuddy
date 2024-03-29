@@ -1,0 +1,187 @@
+get:
+  summary: Get criteria by school id
+  description: Fetch criteria data from the database
+  operationId: getCriteriaBySchoolId
+  parameters:
+    - name: school_id
+      in: path
+      required: true
+      schema:
+        type: integer
+      example: 23
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                criteria_id:
+                  type: integer
+                school_id:
+                  type: integer
+                graduateLevel:
+                  type: string
+                offersScholarship:
+                  type: boolean
+                requiresAppFee:
+                  type: boolean
+                requiresGre:
+                  type: boolean
+          example:
+            - criteria_id: 12
+              school_id: 23
+              graduateLevel: Masters
+              offersScholarship: true
+              requiresAppFee: true
+              requiresGre: true
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+              message:
+                type: string
+          example:
+            success: false
+            message: School not found
+post:
+  summary: Create criteria
+  description: Create a new criteria for a school in the database
+  operationId: createCriteria
+  parameters:
+    - name: school_id
+      in: path
+      required: true
+      schema:
+        type: integer
+      example: 23
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            school_id:
+              type: integer
+            graduateLevel:
+              type: string
+            offersScholarship:
+              type: boolean
+            requiresAppFee:
+              type: boolean
+            requiresGre:
+              type: boolean
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          example:
+            success: true
+            message: Criteria created successfully
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+              message:
+                type: string
+          example:
+            success: false
+            message: School not found
+delete:
+  summary: Delete criteria
+  description: Delete a criteria for a school in the database
+  operationId: deleteCriteria
+  parameters:
+    - name: school_id
+      in: path
+      required: true
+      schema:
+        type: integer
+      example: 230
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          example:
+            success: true
+            message: Criteria deleted successfully
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+              message:
+                type: string
+          example:
+            success: false
+            message: Criteria not found for given school id
+patch:
+  summary: Update criteria
+  description: Update a criteria for a school in the database
+  operationId: updateCriteria
+  parameters:
+    - name: school_id
+      in: path
+      required: true
+      schema:
+        type: integer
+      example: 230
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            school_id:
+              type: integer
+            graduateLevel:
+              type: string
+            offersScholarship:
+              type: boolean
+            requiresAppFee:
+              type: boolean
+            requiresGre:
+              type: boolean
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          example:
+            success: true
+            message: Criteria updated successfully
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+              message:
+                type: string
+          example:
+            success: false
+            message: Criteria not found for given school id

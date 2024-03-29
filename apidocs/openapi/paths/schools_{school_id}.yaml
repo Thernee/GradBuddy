@@ -1,0 +1,126 @@
+get:
+  summary: Get school by id
+  description: Fetch a school data from the database
+  operationId: getSchoolById
+  parameters:
+    - name: school_id
+      in: path
+      required: true
+      schema:
+        type: integer
+      example: 23
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          example:
+            school_id: 23
+            school_name: Albert Einstein School
+            state: Lagos
+            city: Ikeja
+            institutionalControl: Private
+            rank: 354
+            acceptanceRate: 45.7
+            schoolWebsite: https://www.albeinstein.com
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+              message:
+                type: string
+          example:
+            success: false
+            message: School not found
+patch:
+  summary: Update school
+  description: Update a school data in the database
+  operationId: updateSchool
+  parameters:
+    - name: school_id
+      in: path
+      required: true
+      schema:
+        type: integer
+      example: 231
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            school_name:
+              type: string
+            state:
+              type: string
+            city:
+              type: string
+            institutionalControl:
+              type: string
+            rank:
+              type: integer
+            acceptanceRate:
+              type: number
+            schoolWebsite:
+              type: string
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          example:
+            success: true
+            message: School updated successfully
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+              message:
+                type: string
+          example:
+            success: false
+            message: School not found
+delete:
+  summary: Delete school
+  description: Delete a school data in the database
+  operationId: deleteSchool
+  parameters:
+    - name: school_id
+      in: path
+      required: true
+      schema:
+        type: integer
+      example: 537
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          example:
+            success: true
+            message: School deleted successfully
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+              message:
+                type: string
+          example:
+            success: false
+            message: School not found

@@ -1,0 +1,107 @@
+get:
+  summary: Get all scholarships
+  description: Fetch all scholarship data from the database
+  operationId: getScholarships
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          example:
+            - school_id: 1753
+              scholarship_id: 1000
+              scholarship_name: National Merit Scholarship
+              scholarship_description: Scholarship for physics and chemistry students
+              program: Physics and Chemistry
+              degree_level: PhD
+            - school_id: 1005
+              scholarship_id: 1001
+              scholarship_name: Erasmus Mundus Scholarship
+              scholarship_description: Scholarship for masters and phd students
+              program: Computer science, Biology and Physics
+              degree_level: Master and PhD
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+              message:
+                type: string
+          example:
+            success: false
+            message: Scholarships not found
+post:
+  summary: Create scholarship
+  description: Create a new scholarship in the database
+  operationId: createScholarship
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            school_id:
+              type: integer
+            scholarship_id:
+              type: integer
+            scholarship_name:
+              type: string
+            scholarship_description:
+              type: string
+            program:
+              type: string
+            degree_level:
+              type: string
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          example:
+            success: true
+            message: Scholarship created successfully
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+              message:
+                type: string
+          example:
+            success: false
+            message: School not found
+delete:
+  summary: Delete scholarship
+  description: Delete all scholarship in the database
+  operationId: deleteScholarships
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          example:
+            success: true
+            message: Scholarships deleted successfully
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+              message:
+                type: string
+          example:
+            success: false
+            message: Scholarships not found

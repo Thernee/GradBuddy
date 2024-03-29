@@ -1,0 +1,36 @@
+get:
+  summary: Get all users
+  description: Fetch all user data from the database
+  operationId: getUsers
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          example:
+            - user_id: 123e4567-e89b-12d3-a456-426655441234
+              fullname: Sani Abubakar Adam
+              email: saniadam@me.com
+              username: saniadam
+              hashed_password: $2b$10$DqzQqQpXsZ7NqVQXcVH0G.0DxJ2EwvX4jXZqz6n5h9v0u2W9si
+              nationality: Nigerian
+            - user_id: 123e4567-e89b-12d3-a456-t7e89b12d3a456
+              fullname: Magaret Mary
+              email: magaret@me.com
+              username: magaret
+              hashed_password: $2b$10$DqzQqQpXsZ7NqVQXcVH0G-0yerdcvX4jXZqz6n5h9v6hdhdu2gr
+              nationality: Angola
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+              message:
+                type: string
+            example:
+              success: false
+              message: Users not found

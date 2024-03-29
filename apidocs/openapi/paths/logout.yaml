@@ -1,0 +1,40 @@
+post:
+  summary: Logout user
+  description: Logout a registered user in the database
+  operationId: logoutUser
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          example:
+            success: true
+            message: User logged out successfully
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+              message:
+                type: string
+            example:
+              success: false
+              message: Invalid token
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+              message:
+                type: string
+            example:
+              success: false
+              message: User not found

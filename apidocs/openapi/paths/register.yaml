@@ -1,0 +1,57 @@
+post:
+  summary: Register user
+  description: Register a new user in the database
+  operationId: registerUser
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            fullname:
+              type: string
+            email:
+              type: string
+            username:
+              type: string
+            hashed_password:
+              type: string
+            nationality:
+              type: string
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          example:
+            success: true
+            message: User registered successfully
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+              message:
+                type: string
+            example:
+              success: false
+              message: Invalid request payload
+    '409':
+      description: Conflict
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+              message:
+                type: string
+            example:
+              success: false
+              message: User already exists

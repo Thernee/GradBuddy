@@ -1,0 +1,76 @@
+get:
+  summary: Get all scholarships by school id
+  description: Fetch all scholarship data from the database
+  operationId: getScholarshipsBySchoolId
+  parameters:
+    - name: school_id
+      in: path
+      required: true
+      schema:
+        type: integer
+      example: 1753
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          example:
+            - school_id: 1753
+              scholarship_id: 1000
+              scholarship_name: National Merit Scholarship
+              scholarship_description: Fellowship for physics and chemistry students
+              program: Physics and Chemistry
+              degree_level: PhD
+            - school_id: 1005
+              scholarship_id: 1001
+              scholarship_name: Erasmus Mundus Fellowship
+              scholarship_description: Fellowship for masters and phd students
+              program: Computer science, Biology and Physics
+              degree_level: Master and PhD
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+              message:
+                type: string
+          example:
+            success: false
+            message: Scholarships not found for given school
+delete:
+  summary: Delete all scholarships for a school
+  description: Delete all scholarship for a school in the database regardless of id
+  operationId: deleteScholarshipsBySchoolId
+  parameters:
+    - name: school_id
+      in: path
+      required: true
+      schema:
+        type: integer
+      example: 1753
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          example:
+            success: true
+            message: All scholarships deleted successfully for given school
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+              message:
+                type: string
+          example:
+            success: false
+            message: Scholarships not found for given school

@@ -1,0 +1,112 @@
+get:
+  summary: Get favorites
+  description: Fetch favorite data from the database
+  operationId: getFavorites
+  parameters:
+    - name: user_id
+      in: path
+      required: true
+      schema:
+        type: string
+      example: 123e4567-e89b-12d3-a456-426655441234
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          example:
+            - user_id: 123e4567-e89b-12d3-a456-426655441234
+              school_id: 1235
+            - user_id: 123e4567-e89b-12d3-a456-t7e89b12d3a456
+              school_id: 1175
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+              message:
+                type: string
+          example:
+            success: false
+            message: Favorites not found
+post:
+  summary: Create favorite
+  description: Create a new favorite for a user in the database
+  operationId: createFavorite
+  parameters:
+    - name: user_id
+      in: path
+      required: true
+      schema:
+        type: string
+      example: 123e4567-e89b-12d3-a456-426655441234
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            user_id:
+              type: integer
+            school_id:
+              type: integer
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          example:
+            success: true
+            message: Favorite created successfully
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+              message:
+                type: string
+          example:
+            success: false
+            message: User or school not found
+delete:
+  summary: Delete favorite
+  description: Delete a favorite for a user in the database
+  operationId: deleteFavorite
+  parameters:
+    - name: user_id
+      in: path
+      required: true
+      schema:
+        type: string
+      example: 123e4567-e89b-12d3-a456-426655441234
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          example:
+            success: true
+            message: Favorite deleted successfully
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+              message:
+                type: string
+          example:
+            success: false
+            message: Favorite not found for given user id
