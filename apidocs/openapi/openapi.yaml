@@ -22,6 +22,10 @@ components:
       bearerFormat: JWT
       description: Bearer Authentication using JWT
 
+security:
+  - BearerAuth: []
+
+
 paths:
   /users:
     get:
