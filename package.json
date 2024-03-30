@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "doc": "redocly preview-docs apidocs/openapi/bundled.yaml"
   },
   "keywords": [],
   "author": "https://github.com/thernee",
