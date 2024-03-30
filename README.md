@@ -49,10 +49,10 @@ To configure GradBuddy, follow these steps:
 
 1. Navigate to the GradBuddy directory:
 2. Copy *.env.example* to *.env*:
-3. 
+
     `cp .env.example .env`
 
-4. GradBuddy requires the following environment variables to be set up in .env:
+3. GradBuddy requires the following environment variables to be set up in .env:
    - `HOST`: The host address of the server. Default is `localhost`.
    - `PORT`: The port number of the server. Default is `3000`.
    - `DB`: The name of the database. Default is `gradbuddy`.
@@ -65,7 +65,9 @@ To configure GradBuddy, follow these steps:
 To use GradBuddy, follow these steps:
 
 1. Navigate to the GradBuddy directory:
+
 2. Start the server:
+
     `npm start`
 
 3. For detailed instructions on how to interact with the API and examples of requests and responses, please refer to the [API Documentation](#api-documentation).
@@ -75,4 +77,5 @@ To use GradBuddy, follow these steps:
 The API documentation can be found [here](https://thernee.github.io/GradBuddy/).
 
 You can also view the OpenAPI specification for the API locally by running the following command in the GradBuddy directory:
-    `npm run doc`
+
+  `npm run doc`
